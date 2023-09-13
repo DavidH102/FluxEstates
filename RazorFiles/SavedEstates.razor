@@ -1,0 +1,69 @@
+﻿@page "/estates"
+
+@inject EstateApplication EstateApplication
+
+@if (EstateApplication.ListOfEstate != null)
+{
+    <div>
+        @foreach (var estate in EstateApplication.ListOfEstate)
+        {
+            <MudChip Variant="Variant.Outlined" OnClick="@(() => GotoEstate(estate.Id))">Go to estate number @estate.Id</MudChip>
+        }
+    </div>
+
+    @if (currentEstateObject != null)
+    {
+        @foreach (var estateType in estateTypeToComponentType.Keys)
+        {
+            if (estateTypeToComponentType.ContainsKey(estateType))
+            {
+                var componentType = estateTypeToComponentType[estateType];
+
+                try
+                {
+                    var castedEstateObject = Convert.ChangeType(currentEstateObject, componentType);
+                    <DynamicComponent Type="componentType" Value="castedEstateObject" />
+                }
+                catch (InvalidCastException)
+                {
+                    <p>Failed to cast to @estateType</p>
+                }
+            }
+        }
+    }
+    else
+    {
+        <h3>No estate selected</h3>
+    }
+}
+else
+{
+    <h3>There are no estates to view yet</h3>
+}
+
+@code {
+
+    Estate currentEstateObject { get; set; }
+
+    private Dictionary<string, Type> estateTypeToComponentType = new Dictionary<string, Type>
+    {
+        { "Apartment", typeof(FluxEstates.RazorFiles.Views.ApartmentView) },
+        { "Commercial", typeof(FluxEstates.RazorFiles.Views.CommercialView) },
+        { "Estate", typeof(FluxEstates.RazorFiles.Views.EstateView) },
+        { "Hospital", typeof(FluxEstates.RazorFiles.Views.HospitalView) },
+        { "Institutional", typeof(FluxEstates.RazorFiles.Views.InstitutionalView) },
+        { "Rental", typeof(FluxEstates.RazorFiles.Views.RentalView) },
+        { "School", typeof(FluxEstates.RazorFiles.Views.SchoolView) },
+        { "Shop", typeof(FluxEstates.RazorFiles.Views.ShopView) },
+        { "Tenement", typeof(FluxEstates.RazorFiles.Views.TenementView) },
+        { "University", typeof(FluxEstates.RazorFiles.Views.UniversityView) },
+        { "Villa", typeof(FluxEstates.RazorFiles.Views.VillaView) },
+        { "Warehouse", typeof(FluxEstates.RazorFiles.Views.WarehouseView) }
+        // Add more mappings for other estate types as needed
+    };
+
+    async Task GotoEstate(int EstateId)
+    {
+        currentEstateObject = EstateApplication.GetEstate(EstateId);
+    }
+}

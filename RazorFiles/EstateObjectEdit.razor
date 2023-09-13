@@ -1,0 +1,106 @@
+﻿@inject EstateApplication EstateApplication
+
+@if (IsNewSetup)
+{
+    <MudItem Class=" d-flex pa-2 w-100 animate__animated  animate__fadeIn">
+        <MudButton Variant="Variant.Outlined" Color="Color.Info" FullWidth="true" Class="w-50 mr-2" @onclick="@(() => { selectedObjectType = ObjectType.Tenement; CreateEstateObject();})">Create New Tenement</MudButton>
+        <MudButton Variant="Variant.Outlined" Color="Color.Surface" FullWidth="true" Class="w-50 ml-2" @onclick="@(() => { selectedObjectType = ObjectType.Rental; CreateEstateObject();})">Create New Rental</MudButton>
+    </MudItem>
+}
+
+<MudItem Class="d-flex">
+    @if (selectedObjectType != ObjectType.None)
+    {
+        @if (estateObject is Apartment)
+        {
+            <FluxEstates.RazorFiles.Views.ApartmentView CardTitle="Apartment" CurrentApartment="(Apartment)estateObject" />
+        }
+        @if (estateObject is Commercial)
+        {
+            <FluxEstates.RazorFiles.Views.CommercialView CardTitle="Commercial" CurrentCommercial="(Commercial)estateObject" />
+        }
+        @if (estateObject is Estate)
+        {
+            <FluxEstates.RazorFiles.Views.EstateView CardTitle="Estate" CurrentEstate="estateObject" />
+        }
+        @if (estateObject is Hospital)
+        {
+            <FluxEstates.RazorFiles.Views.HospitalView CardTitle="Hospital" CurrentHospital="(Hospital)estateObject" />
+        }
+        @if (estateObject is Institutional)
+        {
+            <FluxEstates.RazorFiles.Views.InstitutionalView CardTitle="Institutional" CurrentInstitutional="(Institutional)estateObject" />
+        }
+        @if (estateObject is Rental)
+        {
+            <FluxEstates.RazorFiles.Views.RentalView CardTitle="Rental" CurrentRental="(Rental)estateObject" />
+        }
+        @if (estateObject is School)
+        {
+            <FluxEstates.RazorFiles.Views.SchoolView CardTitle="School" CurrentSchool="(School)estateObject" />
+        }
+        @if (estateObject is Shop)
+        {
+            <FluxEstates.RazorFiles.Views.ShopView CardTitle="Shop" CurrentShop="(Shop)estateObject" />
+        }
+        @if (estateObject is Tenement)
+        {
+            <FluxEstates.RazorFiles.Views.TenementView CardTitle="Tenement" CurrentTenement="(Tenement)estateObject" />
+        }
+        @if (estateObject is University)
+        {
+            <FluxEstates.RazorFiles.Views.UniversityView CardTitle="University" CurrentUniversity="(University)estateObject" />
+        }
+        @if (estateObject is Villa)
+        {
+            <FluxEstates.RazorFiles.Views.VillaView CardTitle="Villa" CurrentVilla="(Villa)estateObject" />
+        }
+        @if (estateObject is Warehouse)
+        {
+            <FluxEstates.RazorFiles.Views.WarehouseView CardTitle="Warehouse" CurrentWarehouse="(Warehouse)estateObject" />
+        }
+    }
+</MudItem>
+<MudItem Class=" d-flex pa-2 w-100">
+    @if (selectedObjectType != ObjectType.None)
+    {
+        <MudButton Variant="Variant.Outlined" Color="Color.Surface" FullWidth="true" Class="w-100 pa-2" @onclick="@(() => SaveEstateObject() )">Save Changes</MudButton>
+    }
+</MudItem>
+
+@code {
+
+    private ObjectType selectedObjectType = ObjectType.None;
+
+    [Parameter]
+    public Estate estateObject { get; set; }
+
+    bool IsNewSetup = true;
+    protected override async Task OnInitializedAsync()
+    {
+        if (estateObject != null)
+        {
+            IsNewSetup = false;
+        }
+
+    }
+
+    private void CreateEstateObject()
+    {
+        switch (selectedObjectType)
+        {
+            case ObjectType.Tenement:
+                estateObject = new Tenement();
+                break;
+            case ObjectType.Rental:
+                estateObject = new Rental();
+                break;
+        }
+        estateObject.Id = EstateApplication.GetNewIdForObject();
+    }
+
+    private void SaveEstateObject()
+    {
+        EstateApplication.AddEstate(estateObject);
+    }
+}

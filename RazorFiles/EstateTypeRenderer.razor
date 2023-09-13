@@ -1,0 +1,40 @@
+﻿@typeparam T
+
+@code {
+    [Parameter] public object CurrentEstateObject { get; set; }
+    [Parameter] public string ComponentName { get; set; }
+
+    private T CastedEstateObject { get; set; }
+    private bool IsCastSuccessful { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        try
+        {
+            CastedEstateObject = (T)CurrentEstateObject;
+            IsCastSuccessful = true;
+        }
+        catch (InvalidCastException)
+        {
+            IsCastSuccessful = false;
+        }
+    }
+}
+
+@if (IsCastSuccessful)
+{
+    @if (!string.IsNullOrEmpty(ComponentName))
+    {
+        Type type = Type.GetType(ComponentName);
+        if (type != null)
+        {
+            <DynamicComponent Type="type" Value="CastedEstateObject" />
+        }
+    }
+}
+else
+{
+    <p>Failed to cast to @ComponentName</p>
+}

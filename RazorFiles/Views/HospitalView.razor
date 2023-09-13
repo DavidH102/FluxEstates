@@ -1,0 +1,35 @@
+﻿<MudItem Class="pa-2 ma-2 w-25">
+    <MudCard>
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">@CardTitle</MudText>
+            </CardHeaderContent>
+            <CardHeaderActions>
+                <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />
+            </CardHeaderActions>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudSlider @bind-Value="CurrentHospital.NumBeds" Step="2" Min="100" Max="1200" Color="Color.Info"> Number of Beds: @CurrentHospital.NumBeds.ToString()</MudSlider>
+
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton Variant="Variant.Text" Color="Color.Primary">Read More</MudButton>
+        </MudCardActions>
+    </MudCard>
+</MudItem>
+
+@code {
+    [Parameter]
+    public Hospital CurrentHospital { get; set; }
+    [Parameter]
+    public string? CardTitle { get; set; }
+
+    // Set a default value in the component's code block or constructor
+    protected override void OnInitialized()
+    {
+        if (CardTitle == null)
+        {
+            CardTitle = "Header";
+        }
+    }
+}

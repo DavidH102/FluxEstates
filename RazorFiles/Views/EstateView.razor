@@ -1,0 +1,36 @@
+﻿<MudItem Class="pa-2 ma-2 w-25">
+    <MudCard>
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">@CardTitle</MudText>
+            </CardHeaderContent>
+            <CardHeaderActions>
+                <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />
+            </CardHeaderActions>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudTextField T="string" Label="Street" @bind-Value="CurrentEstate.Street"></MudTextField>
+            <MudTextField T="CountryEnum" Label="Country" @bind-Value="CurrentEstate.Country"></MudTextField>
+            <MudTextField T="int" Label="ZipCode" @bind-Value="CurrentEstate.ZipCode"></MudTextField>
+            <MudTextField T="string" Label="City" @bind-Value="CurrentEstate.City"></MudTextField>
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton Variant="Variant.Text" Color="Color.Primary">Read More</MudButton>
+        </MudCardActions>
+    </MudCard>
+</MudItem>
+@code {
+            [Parameter]
+    public Estate CurrentEstate { get; set; }
+    [Parameter]
+    public string? CardTitle { get; set; }
+
+    // Set a default value in the component's code block or constructor
+    protected override void OnInitialized()
+    {
+        if (CardTitle == null)
+        {
+            CardTitle = "Header";
+        }
+    }
+}

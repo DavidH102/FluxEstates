@@ -1,0 +1,50 @@
+﻿@page "/estateview/{id}"
+
+<MudItem Class="pa-2 ma-2 w-25">
+    <MudCard>
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">@CardTitle</MudText>
+            </CardHeaderContent>
+            <CardHeaderActions>
+                <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />
+            </CardHeaderActions>
+        </MudCardHeader>
+        <MudCardContent>
+            <h3>RentalView</h3>
+            @if (CurrentRental != null)
+            {
+                <MudItem>
+                   
+                    <MudSlider @bind-Value="CurrentRental.LeaseLenthsInMonths" Min="1" Max="12" Step="1"> Lease Lenth (months): @CurrentRental.LeaseLenthsInMonths.ToString()</MudSlider>
+                </MudItem>
+            }
+            else
+            {
+                <p>Not found</p>
+            }
+        </MudCardContent>    
+    </MudCard>
+</MudItem>
+
+
+
+
+@code {
+    [Parameter]
+    public string? CardTitle { get; set; }
+    [Parameter]
+    public Rental CurrentRental { get; set; }
+
+
+
+}
+@*     // Set a default value in the component's code block or constructor
+    protected override void OnInitialized()
+    {
+        if (CardTitle == null)
+        {
+            CardTitle = "Header";
+        }
+    } *@
+

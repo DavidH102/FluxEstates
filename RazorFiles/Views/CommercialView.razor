@@ -1,0 +1,33 @@
+﻿<MudItem Class="pa-2 ma-2 w-25">
+    <MudCard>
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">@CardTitle</MudText>
+            </CardHeaderContent>
+            <CardHeaderActions>
+                <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />
+            </CardHeaderActions>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudSlider @bind-Value="CurrentCommercial.SquareFootage" Step="10" Min="200" Max="3000" Color="Color.Info"> SquareFootage: @CurrentCommercial.SquareFootage.ToString()</MudSlider>
+
+            <MudTextField @bind-Value="CurrentCommercial.CompanyName" Label="CompanyName" Variant="Variant.Outlined"></MudTextField>
+        </MudCardContent>
+     
+    </MudCard>
+</MudItem>
+@code {
+    [Parameter]
+    public Commercial CurrentCommercial { get; set; }
+    [Parameter]
+    public string? CardTitle { get; set; }
+
+    // Set a default value in the component's code block or constructor
+    protected override void OnInitialized()
+    {
+        if (CardTitle == null)
+        {
+            CardTitle = "Header";
+        }
+    }
+}
