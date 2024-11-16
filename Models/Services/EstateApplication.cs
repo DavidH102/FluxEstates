@@ -29,8 +29,8 @@ namespace FluxEstates.Models.Services
             {
                 ListOfEstate?.Add(estate);
             }
-
         }
+
         public Estate GetEstate(int Id)
         {
             if (ListOfEstate == null)
@@ -40,10 +40,12 @@ namespace FluxEstates.Models.Services
             var resp = ListOfEstate?.FirstOrDefault(x => x.Id == Id);
             return resp ?? default;
         }
+
         public void updateEstate(Estate estate)
         {
             ListOfEstate[ListOfEstate.FindIndex(x => x.Id == estate.Id)] = estate;
         }
+
         public void deleteEstate(Estate estate)
         {
             ListOfEstate.Remove(estate);
@@ -54,7 +56,6 @@ namespace FluxEstates.Models.Services
             if (ListOfEstate == null)
             {
                 return 1;
-
             }
             if (ListOfEstate.Count == 0)
             {
@@ -63,8 +64,5 @@ namespace FluxEstates.Models.Services
             int highestnumber = ListOfEstate.Select(x => x.Id).Max();
             return highestnumber + 1;
         }
-
     }
-
 }
-

@@ -1,21 +1,13 @@
 ﻿using FluxEstates.Models.Distinct;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FluxEstates.Models.Concreate.Subclasses
 {
     public class Rental : Apartment
     {
-
         public int RentalId { get; set; }
 
         public int LeaseLenthsInMonths { get; set; }
 
         public ObjectType Type { get; set; } = ObjectType.Rental;
-
-
     }
 }
