@@ -7,7 +7,7 @@
     <div>
         @foreach (var estate in EstateApplication.ListOfEstate)
         {
-            <MudChip Variant="Variant.Outlined" OnClick="@(() => GotoEstate(estate.Id))">Go to estate number @estate.Id</MudChip>
+            <MudChip T="string" Variant=Variant.Outlined OnClick="@(() => GotoEstate(estate.Id))">Go to estate number @estate.Id</MudChip>
         }
     </div>
 

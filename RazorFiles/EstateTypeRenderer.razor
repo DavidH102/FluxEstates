@@ -1,8 +1,8 @@
 ﻿@typeparam T
 
 @code {
-    [Parameter] public object CurrentEstateObject { get; set; }
-    [Parameter] public string ComponentName { get; set; }
+    [Parameter] public object? CurrentEstateObject { get; set; }
+    [Parameter] public string? ComponentName { get; set; }
 
     private T CastedEstateObject { get; set; }
     private bool IsCastSuccessful { get; set; }
